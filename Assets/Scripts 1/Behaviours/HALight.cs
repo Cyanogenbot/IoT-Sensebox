@@ -1,10 +1,11 @@
 using HomeAssistant;
 using UnityEngine;
+using Newtonsoft.Json.Linq;
 
 public class HALight : ActivationBehaviour
 {
     public string entityId;
-    public GameObject sceneLight;
+    public Light sceneLight;
     
     private LightEntity _lightEntity;
 
@@ -17,34 +18,65 @@ public class HALight : ActivationBehaviour
             // grab current state
             _lightEntity.IsOn(on =>
             {
-                if(sceneLight != null)
-                    sceneLight.SetActive(on);
+                if(sceneLight != null){
+                    sceneLight.enabled = on;
+                    _lightEntity.GetBrightness(brightness =>{
+                        sceneLight.intensity = (brightness * 10);
+                        // Debug.Log($"The lamp brightness is {brightness / 255f}");
+                    });
+                    _lightEntity.GetColor((red,green,blue) => {
+                        Color newColor = new Color(red / 255f, green / 255f, blue / 255f, 1f); // Create a new Color object from the RGB values
+                        sceneLight.color = newColor; // Assign the new Color to the Light component
+                    });}
+                    else
+                        {
+                            sceneLight.intensity = 0;
+                        }
+
             });
         }
     }
-    void Update()
-    {
-    
+private float timer = 0.25f; // set the timer to 1 second
 
-    if (_lightEntity != null)
+void Update()
+{
+    timer -= Time.deltaTime; // reduce the timer by the elapsed time since the last frame
+
+    if (timer <= 0f) // if the timer has elapsed
     {
-        // Check if light entity state has changed
-        _lightEntity.IsOn(on =>
+        // execute the code to check the state of the light entity
+        if (_lightEntity != null)
+
         {
-            if (sceneLight != null)
+
+            _lightEntity.GetBrightness(brightness =>{
+                sceneLight.intensity = (brightness * 10);
+                // Debug.Log($"The lamp brightness is {brightness / 255f}");
+            });
+
+            _lightEntity.GetColor((red,green,blue) => {
+                Color newColor = new Color(red / 255f, green / 255f, blue / 255f, 1f); // Create a new Color object from the RGB values
+                sceneLight.color = newColor; // Assign the new Color to the Light component
+            });
+            // Check if light entity state has changed
+            _lightEntity.IsOn(on =>
             {
-                bool isSceneLightActive = sceneLight.activeSelf;
-                if (on != isSceneLightActive)
+                if (sceneLight != null)
                 {
-                    sceneLight.SetActive(on);
+                    bool isSceneLightActive = sceneLight.enabled;
+                    if (on != isSceneLightActive)
+                    {
+                        sceneLight.enabled = on;
+
+
+                    }
                 }
-            }
-        });
+            });
+        }
+
+        timer = 0.25f; // reset the timer to 1 second
     }
-
-
-
-    }
+}
 
     public override void OnActivate()
     {
@@ -53,8 +85,16 @@ public class HALight : ActivationBehaviour
             _lightEntity.Toggle(on =>
             {
                 if (sceneLight != null)
-                {
-                    sceneLight.SetActive(on);
+                {   sceneLight.enabled = on;
+                    _lightEntity.GetBrightness(brightness =>{
+                        sceneLight.intensity = (brightness * 10);
+                        // Debug.Log($"The lamp brightness is {brightness / 255f}");
+                    });
+                    _lightEntity.GetColor((red,green,blue) => {
+                        Color newColor = new Color(red / 255f, green / 255f, blue / 255f, 1f); // Create a new Color object from the RGB values
+                        sceneLight.color = newColor; // Assign the new Color to the Light component
+                    });
+                    // sceneLight.SetActive(on);
                 }
                 
             });

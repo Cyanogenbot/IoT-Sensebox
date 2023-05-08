@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 8900000, guid: 619e305f5165a9946b7f72464e44ca4a, type: 3}
   m_Sun: {fileID: 2114283754330233425}
-  m_IndirectSpecularColor: {r: 0.0283224, g: 0.06272407, b: 0.124780595, a: 1}
+  m_IndirectSpecularColor: {r: 0.028322546, g: 0.06272448, b: 0.124781474, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -580,7 +580,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 0.71346545, b: 0, a: 1}
-  m_Intensity: 200
+  m_Intensity: 2555
   m_Range: 30
   m_SpotAngle: 37.139374
   m_InnerSpotAngle: 21.80208
@@ -6547,7 +6547,7 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 0, g: 0, b: 0, a: 0}
+        key1: {r: 0, g: 0, b: 0, a: 0.75686276}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -6564,7 +6564,7 @@ ParticleSystem:
         ctime7: 0
         atime0: 0
         atime1: 65535
-        atime2: 0
+        atime2: 65535
         atime3: 0
         atime4: 0
         atime5: 0
@@ -19190,7 +19190,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activation: 99
   entityId: light.lego
-  sceneLight: {fileID: 129594866}
+  sceneLight: {fileID: 129594868}
 --- !u!4 &1553121832
 Transform:
   m_ObjectHideFlags: 0
@@ -23470,7 +23470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 5393215579111688484}
-  moveSpeed: 8
+  moveSpeed: 4
 --- !u!54 &5393215579111688484
 Rigidbody:
   m_ObjectHideFlags: 0
